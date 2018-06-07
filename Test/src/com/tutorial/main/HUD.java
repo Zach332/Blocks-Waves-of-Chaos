@@ -19,5 +19,6 @@ public class HUD {
 		
 		g.drawString("Score: " + GameRun.ticks / 100,10, 48);
 		g.drawString("Level: " + GameRun.level,10, 64);
+		if(!Game.running)g.drawString("gameover: " + GameRun.ticks / 100,10, 88);
 	}
 }

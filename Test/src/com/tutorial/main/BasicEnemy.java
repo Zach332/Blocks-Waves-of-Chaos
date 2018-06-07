@@ -6,7 +6,7 @@ import java.awt.Graphics;
 public class BasicEnemy extends GameObject{
 
 	public BasicEnemy(Handler h) {
-		super(Game.r.nextInt(Game.WIDTH - 16), Game.r.nextInt(Game.HEIGHT - 38), ID.BasicEnemy, 16, h);
+		super(Game.r.nextInt(Game.WIDTH - 16), Game.r.nextInt(Game.HEIGHT - 38), ID.Enemy, 16, h);
 		velX = 6;
 		velY = 6;
 	}

@@ -14,7 +14,7 @@ public class Player extends GameObject{
 		x = Game.clamp(x + velX, 0, Game.WIDTH - size);
 		y = Game.clamp(y + velY, 0, Game.HEIGHT - (22+size));
 		for(GameObject o: h.object) {
-			if(o.id == ID.BasicEnemy) {
+			if(o.id == ID.Enemy) {
 				if(Game.isTouching(this,o) && GameRun.ticks > 99) {GameRun.health = Game.clamp(GameRun.health-1,0,100);color = Color.magenta;}
 			}else {color = Color.white;}
 		}

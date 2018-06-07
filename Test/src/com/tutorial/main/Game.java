@@ -18,7 +18,7 @@ public class Game extends Canvas implements Runnable{
 	
 	
 	private Thread thread;
-	private boolean running = false;
+	public static boolean running = false;
 	public Game() {
 		handler = new Handler();
 		new GameRun(handler);
@@ -37,10 +37,31 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public synchronized void stop() {
+		BufferStrategy bs = this.getBufferStrategy();
+		if(bs == null) {
+			this.createBufferStrategy(3);
+			return;
+		}
+		Graphics g = bs.getDrawGraphics();
+		g.setColor(Color.white);
+		g.drawString("Game Over", 10, 80);
+		g.setColor(Color.black);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.setColor(Color.red);
+		g.fillRect(WIDTH/2 - 5,HEIGHT/2 - 15,75,20);
+		g.setColor(Color.white);
+		g.drawString("Game Over", WIDTH/2, HEIGHT/2);
+		handler.render(g);
+		
+		g.dispose();
+		bs.show();
+		g.dispose();
+		bs.show();
 		try {
 			thread.join();
 			running = false;
 		} catch(Exception E) {}
+		
 	}
 	
 	public void run() {
@@ -86,10 +107,11 @@ public class Game extends Canvas implements Runnable{
 		g.dispose();
 		bs.show();
 		
+		
 	}
 	private void tick() {
 		handler.tick();
-		
+		if(GameRun.health == 0)stop();
 	}
 	public static void main (String args[]) {
 		new Game();
