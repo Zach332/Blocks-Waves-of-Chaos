@@ -6,7 +6,7 @@ import java.awt.Graphics;
 public class GenericEnemy extends GameObject{
 	Color color;
 	public GenericEnemy(Color color, int size, int velX, int velY, Handler h) {
-		super(Game.r.nextInt(Game.WIDTH - 16), Game.r.nextInt(Game.HEIGHT - 38), ID.Enemy, size, h);
+		super(Game.r.nextInt(Game.WIDTH - size), Game.r.nextInt(Game.HEIGHT - (22+size)), ID.Enemy, size, h);
 		this.velX = velX;
 		this.velY = velY;
 		this.color = color;

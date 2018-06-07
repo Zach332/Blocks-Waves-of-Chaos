@@ -9,8 +9,8 @@ public class Handler {
 	
 	public void tick() {
 		GameRun.ticks++;
-		for(GameObject o: object) {
-			o.tick();
+		for(int i = 0; i<object.size();i++) {
+			object.get(i).tick();
 		}
 		GameRun.tick();
 	}

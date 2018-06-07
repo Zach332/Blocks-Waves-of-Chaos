@@ -12,7 +12,7 @@ public class Game extends Canvas implements Runnable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1550691097823471818L;
-	public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
+	public static final int WIDTH = 960, HEIGHT = WIDTH / 12 * 9;
 	Handler handler;
 	public static Random r;
 	
@@ -23,7 +23,7 @@ public class Game extends Canvas implements Runnable{
 		handler = new Handler();
 		new GameRun(handler);
 		this.addKeyListener(new KeyInput(handler));
-		new Window(WIDTH, HEIGHT, "Let's Build a Game!", this);
+		new Window(WIDTH, HEIGHT, "BLOCKS: Waves of Chaos", this);
 		r = new Random();
 		
 		new Player(WIDTH/2,HEIGHT/2,ID.Player, 25,handler);
@@ -43,15 +43,16 @@ public class Game extends Canvas implements Runnable{
 			return;
 		}
 		Graphics g = bs.getDrawGraphics();
-		g.setColor(Color.white);
-		g.drawString("Game Over", 10, 80);
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		handler.render(g);
+		//g.setColor(Color.white);
+		//g.drawString("Game Over", 10, 80);
 		g.setColor(Color.red);
 		g.fillRect(WIDTH/2 - 5,HEIGHT/2 - 15,75,20);
 		g.setColor(Color.white);
 		g.drawString("Game Over", WIDTH/2, HEIGHT/2);
-		handler.render(g);
+		
 		
 		g.dispose();
 		bs.show();
@@ -70,8 +71,8 @@ public class Game extends Canvas implements Runnable{
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 /  amountOfTicks;
 		double delta = 0;
-		long timer = System.currentTimeMillis();
-		int frames = 0;
+		//long timer = System.currentTimeMillis();
+		//int frames = 0;
 		while(running) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
@@ -82,7 +83,7 @@ public class Game extends Canvas implements Runnable{
 				
 			}
 			if(running)render();
-			frames++;
+			//frames++;
 			
 			/*if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
