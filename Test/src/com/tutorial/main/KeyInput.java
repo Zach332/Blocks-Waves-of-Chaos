@@ -23,6 +23,11 @@ public class KeyInput extends KeyAdapter{
 				if(key == KeyEvent.VK_S) {o.setVelY(8);keyDown[3] = true;}
 			}
 		}
+		if(Game.state == Game.State.Stop && key == KeyEvent.VK_ENTER) {
+			Game.state = Game.State.Start;
+			GameRun.startTicks = 0;
+		}
+			
 	}
 	
 	public void keyReleased(KeyEvent e) {

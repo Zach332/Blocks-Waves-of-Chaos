@@ -2,6 +2,7 @@ package com.tutorial.main;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.Random;
@@ -15,19 +16,24 @@ public class Game extends Canvas implements Runnable{
 	public static final int WIDTH = 960, HEIGHT = WIDTH / 12 * 9;
 	Handler handler;
 	public static Random r;
-	
-	
 	private Thread thread;
+	private Window window;
+	
+	public enum State {
+		Start(),
+		Game(),
+		Stop();
+	}
+	
 	public static boolean running = false;
+	public static State state;
 	public Game() {
 		handler = new Handler();
 		new GameRun(handler);
 		this.addKeyListener(new KeyInput(handler));
-		new Window(WIDTH, HEIGHT, "BLOCKS: Waves of Chaos", this);
+		window = new Window(WIDTH, HEIGHT, "BLOCKS: Waves of Chaos", this);
 		r = new Random();
-		
-		new Player(WIDTH/2,HEIGHT/2,ID.Player, 25,handler);
-		new BasicEnemy(handler);
+		state = State.Start;
 		
 	}
 	public synchronized void start() {
@@ -37,7 +43,13 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public synchronized void stop() {
-		BufferStrategy bs = this.getBufferStrategy();
+		state = State.Stop;
+		for(int i = 0; i < handler.object.size();i++)
+		{
+			handler.object.remove(i);
+			i--;
+		}
+		/*BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null) {
 			this.createBufferStrategy(3);
 			return;
@@ -49,19 +61,20 @@ public class Game extends Canvas implements Runnable{
 		//g.setColor(Color.white);
 		//g.drawString("Game Over", 10, 80);
 		g.setColor(Color.red);
-		g.fillRect(WIDTH/2 - 5,HEIGHT/2 - 15,75,20);
+		g.fillRect(WIDTH/2 - 45,HEIGHT/2 - 50,180,40);
 		g.setColor(Color.white);
-		g.drawString("Game Over", WIDTH/2, HEIGHT/2);
+		g.setFont(new Font("arial",1,30));
+		g.drawString("Game Over", WIDTH/2-40, HEIGHT/2-20);
 		
 		
 		g.dispose();
 		bs.show();
 		g.dispose();
-		bs.show();
-		try {
-			thread.join();
-			running = false;
-		} catch(Exception E) {}
+		bs.show();*/
+		//try {
+		//	thread.join();
+		//	running = false;
+		//} catch(Exception E) {}
 		
 	}
 	
@@ -104,7 +117,6 @@ public class Game extends Canvas implements Runnable{
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		handler.render(g);
-		
 		g.dispose();
 		bs.show();
 		

@@ -8,6 +8,7 @@ public class Handler {
 	LinkedList<GameObject> object = new LinkedList<GameObject>();
 	
 	public void tick() {
+		if(Game.state==Game.State.Game)
 		GameRun.ticks++;
 		for(int i = 0; i<object.size();i++) {
 			object.get(i).tick();
